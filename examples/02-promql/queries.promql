@@ -1,0 +1,20 @@
+# 02-promql — PromQL queries for host and service health.
+# Section A queries use only universal series (up, scrape_duration_seconds)
+# and are safe to run against any Prometheus. Section B names
+# windows_exporter series that are TO CONFIRM AT VALIDATION — the fleet
+# record proves the exporter answers on :9182, not these exact series names.
+
+# --- Section A: universal ---
+# Every target, 1 = up, 0 = down.
+up
+
+# Down exporters only (empty result = everything up).
+up{job="windows_exporter"} == 0
+
+# Scrape latency per job (Prometheus self-metric).
+scrape_duration_seconds{job="windows_exporter"}
+
+# --- Section B: windows_exporter candidates, TO CONFIRM AT VALIDATION ---
+# CPU idle share over 5 minutes (candidate series: windows_cpu_time_total).
+# rate(windows_cpu_time_total{mode="idle"}[5m])
+#   / ignoring(mode) group_left sum by (instance) (rate(windows_cpu_time_total[5m]))

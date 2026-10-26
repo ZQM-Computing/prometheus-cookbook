@@ -1,0 +1,18 @@
+# 03-alert-rules — recording and alerting rules (dev instance only).
+# Fleet reference: the fleet's Prometheus already carries a service-down alert
+# expression and 8 rules (promtool check rules SUCCESS per the fleet record).
+# This file mirrors that shape for a dev instance; it never edits fleet rules.
+groups:
+  - name: exporter-health
+    interval: 1m
+    rules:
+      - record: job:up:sum
+        expr: sum by (job) (up)
+      - alert: WindowsExporterDown
+        expr: up{job="windows_exporter"} == 0
+        for: 5m
+        labels:
+          severity: page
+        annotations:
+          summary: "windows_exporter down on {{ $labels.instance }}"
+          description: "windows_exporter has been down for more than 5 minutes."

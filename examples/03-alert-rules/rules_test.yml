@@ -1,0 +1,21 @@
+# 03-alert-rules test — promtool test rules with synthetic series.
+# No live server needed: promtool replays these series and checks the alert.
+rule_files:
+  - rules.yml
+evaluation_interval: 1m
+tests:
+  - interval: 1m
+    input_series:
+      - series: 'up{job="windows_exporter", instance="testhost:9182"}'
+        values: 0+0x9
+    alert_rule_test:
+      - eval_time: 10m
+        alertname: WindowsExporterDown
+        exp_alerts:
+          - exp_labels:
+              instance: testhost:9182
+              job: windows_exporter
+              severity: page
+            exp_annotations:
+              summary: "windows_exporter down on testhost:9182"
+              description: "windows_exporter has been down for more than 5 minutes."
