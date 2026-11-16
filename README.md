@@ -11,7 +11,7 @@
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-A **Prometheus cookbook** for scrape jobs, PromQL, and alert rules with windows_exporter. Patterns are drawn from the ZQM fleet's Prometheus 3.15.1 installs and windows_exporter 0.32.0 metrics endpoints on Node-1 and Node-3. It is intended for Platform engineers who collect metrics from Windows hosts and services. Validate each pattern against your own data, software versions, and operating environment before adopting it.
+A **Prometheus cookbook** for scrape jobs, PromQL, and alert rules with windows_exporter. Patterns are drawn from the ZQM fleet's Prometheus 3.15.1 installs and windows_exporter 0.32.0 metrics endpoints on Node-1 and Node-3 (as of Oct 2026; verify against the current fleet). It is intended for Platform engineers who collect metrics from Windows hosts and services. Validate each pattern against your own data, software versions, and operating environment before adopting it.
 
 ## Repository role and status
 
